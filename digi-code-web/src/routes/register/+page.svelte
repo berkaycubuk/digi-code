@@ -1,5 +1,18 @@
 <script>
 	import AuthCard from "$lib/components/AuthCard.svelte";
+
+	const register = async () => {
+		fetch("http://localhost:8080/api/v1/auth", {
+			method: "POST",
+			body: JSON.stringify({
+				email: "berkay@berkaycubuk.com",
+				password: "password",
+			}),
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			},
+		});
+	}
 </script>
 
 <AuthCard title="Create a new account">
@@ -30,7 +43,7 @@
 		</div>
 
 		<div>
-			<button class="button">Register</button>
+			<button class="button" on:click={register}>Register</button>
 		</div>
 
 		<p class="font-light text-neutral-600">

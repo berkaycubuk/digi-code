@@ -10,6 +10,14 @@ import java.util.List;
 @Configuration
 public class UserConfig {
 
+    private final UserService userService;
+
+    public UserConfig(
+            UserService userService
+    ) {
+       this.userService = userService;
+    }
+
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
@@ -29,9 +37,8 @@ public class UserConfig {
                     Role.USER
             );
 
-            repository.saveAll(
-                    List.of(joe, maria)
-            );
+            userService.save(joe);
+            userService.save(maria);
         };
     }
 }

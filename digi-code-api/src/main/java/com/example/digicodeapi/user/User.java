@@ -31,6 +31,7 @@ public class User implements UserDetails {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String username;
 	private String password;
 
 	@CreatedDate
@@ -54,6 +55,7 @@ public class User implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.username = email;
 		this.password = password;
 		this.role = role;
 	}
@@ -68,6 +70,7 @@ public class User implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.username = email;
 		this.password = password;
 		this.role = role;
 	}
@@ -139,6 +142,10 @@ public class User implements UserDetails {
 	@Override
 	public String getPassword() {
 		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

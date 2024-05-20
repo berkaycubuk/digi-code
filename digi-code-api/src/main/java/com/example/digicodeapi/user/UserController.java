@@ -23,7 +23,7 @@ public class UserController {
 
 	@PostMapping
 	public void registerUser(@RequestBody User user) {
-		userService.addUser(user);
+		userService.save(user);
 	}
 
 	@DeleteMapping(path = "{userId}")

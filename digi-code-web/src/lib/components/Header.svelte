@@ -25,7 +25,9 @@
 <header id="header" class="{ glassBg ? 'backdrop-blur border-b border-white/20' : 'bg-black' } fixed top-0 left-0 w-full z-[999]">
 	<div class="container mx-auto p-6 flex items-center gap-8 justify-between">
 		<div>
-			<img src="/logo.svg" alt="Logo" class="h-8" />
+			<a href="/">
+				<img src="/logo.svg" alt="Logo" class="h-8" />
+			</a>
 		</div>
 
 		<div class="grow">
