@@ -18,6 +18,7 @@ public class UserConfig {
        this.userService = userService;
     }
 
+    /*
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
@@ -41,4 +42,6 @@ public class UserConfig {
             userService.save(maria);
         };
     }
+
+     */
 }

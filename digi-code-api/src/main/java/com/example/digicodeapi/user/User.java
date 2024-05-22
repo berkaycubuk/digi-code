@@ -1,6 +1,7 @@
 package com.example.digicodeapi.user;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,20 +13,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User implements UserDetails {
 
 	@Id
-	/*
-	@SequenceGenerator(
-			name = "user_sequence",
-			sequenceName = "user_sequence",
-			allocationSize = 1
-	)
-	@GeneratedValue(
-			strategy = GenerationType.SEQUENCE,
-			generator = "user_sequence"
-	)
-	 */
 	@GeneratedValue
 	private Long id;
 	private String firstName;
@@ -75,54 +66,6 @@ public class User implements UserDetails {
 		this.role = role;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
 	@Override
 	public String toString() {
 		return "User{" +
@@ -130,6 +73,7 @@ public class User implements UserDetails {
 				", firstName=" + firstName + '\'' +
 				", lastName=" + lastName + '\'' +
 				", email=" + email + '\'' +
+				", username=" + username + '\'' +
 				", createdDate=" + createdDate +
 				'}';
 	}
