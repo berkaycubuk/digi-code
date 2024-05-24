@@ -1,5 +1,7 @@
 <script>
 	import "../app.css";
+
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 </script>
 
 <html lang="en">
@@ -10,5 +12,7 @@
 	</head>
 	<body class="bg-neutral-50 flex flex-col min-h-screen">
 		<slot />
+
+		<SvelteToast />
 	</body>
 </html>

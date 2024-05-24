@@ -28,6 +28,12 @@ public class ProductService {
         Product product = new Product();
         product.setTitle(request.getTitle());
         product.setDescription(request.getDescription());
+        product.setPrice(request.getPrice());
+        product.setRating(request.getRating());
         return productRepository.save(product);
+    }
+
+    public void deleteOne(Long productId) {
+        productRepository.deleteById(productId);
     }
 }

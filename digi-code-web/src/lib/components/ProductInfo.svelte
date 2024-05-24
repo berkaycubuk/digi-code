@@ -1,22 +1,26 @@
 <script>
 	import StarGrading from '$lib/components/StarGrading.svelte';
 	import ProductVariantOption from '$lib/components/ProductVariantOption.svelte';
+
+	export let title = "";
+	export let price;
+	export let rating;
 </script>
 
 <div>
 	<div class="mb-2 text-neutral-500 font-medium">Chair Co.</div>
 
-	<h1 class="text-4xl font-semibold mb-3">Chair</h1>
+	<h1 class="text-4xl font-semibold mb-3">{title}</h1>
 
 	<div class="flex items-center justify-between">
 		<div class="flex items-end gap-2 mb-2">
-			<div class="text-3xl font-semibold text-neutral-800">399,00</div>
+			<div class="text-3xl font-semibold text-neutral-800">{price}</div>
 			<div class="text-lg text-neutral-800">EUR</div>
 		</div>
 
 		<div class="flex flex-col gap-1 mb-2 items-end">
 
-			<StarGrading stars={3} />
+			<StarGrading stars={rating} />
 
 			<a class="text-blue-600 text-sm" href="/">(87 Reviews)</a>
 			

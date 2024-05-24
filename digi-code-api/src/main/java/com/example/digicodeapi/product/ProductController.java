@@ -1,12 +1,14 @@
 package com.example.digicodeapi.product;
 
 import com.example.digicodeapi.product.requests.ProductCreateRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
+@Validated
 public class ProductController {
 
     private ProductService productService;
@@ -30,5 +32,10 @@ public class ProductController {
     @PostMapping("/create")
     public Product createProduct(@RequestBody ProductCreateRequest request) {
         return productService.createOne(request);
+    }
+
+    @DeleteMapping("/{productId}")
+    public void deleteProduct(@PathVariable Long productId) {
+        productService.deleteOne(productId);
     }
 }

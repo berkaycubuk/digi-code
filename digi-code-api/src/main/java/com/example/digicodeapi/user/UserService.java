@@ -29,6 +29,10 @@ public class UserService implements UserDetailsService {
 		return userRepository.findAll();
 	}
 
+	public User getOneById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
+
 	public void save(User user) {
 		Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 		if (userOptional.isPresent()) {

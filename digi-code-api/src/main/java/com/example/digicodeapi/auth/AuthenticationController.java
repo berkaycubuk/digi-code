@@ -32,7 +32,7 @@ public class AuthenticationController {
             @RequestBody AuthDTO.LoginRequest request
     ) throws IllegalAccessException {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.username(),
+                request.email(),
                 request.password()
         ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -45,21 +45,4 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(response);
     }
-
-    /*
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(authenticationService.register(request));
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody LoginRequest request
-    ) {
-        return ResponseEntity.ok(authenticationService.login(request));
-    }
-
-     */
 }

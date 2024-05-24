@@ -2,7 +2,9 @@
 	import AuthCard from "$lib/components/AuthCard.svelte";
 
 	import { post } from "$lib/api";
-	import { getCookie, setCookie } from "$lib/cookie";
+	import { setCookie } from "$lib/cookie";
+
+	import { goto } from '$app/navigation';
 
 	let email;
 	let password;
@@ -15,6 +17,8 @@
 			});
 
 			setCookie("auth_token", response.token, 30);
+
+			goto('/');
 		} catch(error) {
 			console.log(error);
 		}

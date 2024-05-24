@@ -29,6 +29,13 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -56,19 +63,31 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true); // you may not need this if not using credentials
+        config.addAllowedOrigin("http://localhost:5173"); // allow your Svelte app's origin
+        config.addAllowedHeader("*"); // allow any header
+        config.addAllowedMethod("*"); // allow any method (POST, GET, etc.)
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> {
-                            auth.requestMatchers("/api/v1/auth/**").permitAll();
-                            auth.anyRequest().authenticated();
-                        }
+                .csrf(csrf -> {csrf.disable();})
+                .authorizeHttpRequests(auth ->
+                    auth.requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/v1/product/**").permitAll()
+                    .requestMatchers("/api/v1/product-comment/**").permitAll()
+                    .anyRequest().authenticated()
                 )
-                .cors(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
+                .cors(cors -> cors.disable())
+                //.httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())))
                 .userDetailsService(userDetailsService)
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }

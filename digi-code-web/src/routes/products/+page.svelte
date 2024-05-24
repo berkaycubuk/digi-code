@@ -3,6 +3,26 @@
 	import Footer from "$lib/components/Footer.svelte";
 	import FilterSidebar from "../../lib/components/FilterSidebar.svelte";
 	import ProductCard from "../../lib/components/ProductCard.svelte";
+
+	import { onMount } from "svelte";
+	import productService from "$lib/services/productService";
+
+	let products = [];
+
+	const fetchAllProducts = async () => {
+		try {
+			const response = await productService.getAll()
+
+			products = response
+			console.log(products)
+		} catch(err) {
+			console.log(err)
+		}
+	}
+
+	onMount(() => {
+		fetchAllProducts()
+	})
 </script>
 
 <Header glassOnScroll={false} addSpace={true} />
@@ -20,43 +40,18 @@
 
 		<div class="grow">
 
+			{#if products.length > 0}
 			<h1 class="text-2xl font-medium mb-2">Results</h1>
-
-			<p class="font-light text-neutral-600">Found 28 products.</p>
+			<p class="font-light text-neutral-600">Found {products.length} products.</p>
+			{/if}
 
 			<div class="grid grid-cols-4 gap-6 mt-10">
 
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
+				{#each products as product}
+				<a href="/products/{product.id}">
+					<ProductCard title={product.title} image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price={product.price} stars={product.rating}/>
 				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
-
-				<a href="/">
-					<ProductCard title="Kitchen Set" image="https://images.unsplash.com/photo-1596552183299-000ef779e88d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" price="1.899,99"/>
-				</a>
+				{/each}
 
 			</div>
 
