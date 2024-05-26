@@ -1,8 +1,15 @@
 <script>
 	import productService from "$lib/services/productService";
 	import { onMount } from "svelte";
+	import Breadcrumb from "../../../lib/components/Breadcrumb.svelte";
 
 	let products = [];
+
+	let breadcrumbItems = [
+		{
+			text: "Products",
+		},
+	];
 
 	const fetchProducts = async () => {
 		try {
@@ -35,6 +42,10 @@
 </script>
 
 <div class="p-6">
+
+	<div class="mb-8">
+		<Breadcrumb items={breadcrumbItems} />
+	</div>
 
 	<a href="/admin/products/create">Create new product</a>
 

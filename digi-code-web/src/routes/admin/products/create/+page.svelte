@@ -1,11 +1,22 @@
 <script>
 	import { goto } from "$app/navigation"
 	import productService from "$lib/services/productService";
+	import Breadcrumb from "../../../../lib/components/Breadcrumb.svelte";
 
 	let title;
 	let description;
 	let price;
 	let rating;
+
+	let breadcrumbItems = [
+		{
+			text: "Products",
+			href: "/admin/products",
+		},
+		{
+			text: "Create new",
+		},
+	];
 
 	const save = async () => {
 		try {
@@ -27,6 +38,11 @@
 </script>
 
 <div class="p-6">
+
+	<div class="mb-8">
+		<Breadcrumb items={breadcrumbItems} />
+	</div>
+
 	<form class="grid grid-cols-2 gap-2">
 
 		<div class="flex flex-col gap-1">
