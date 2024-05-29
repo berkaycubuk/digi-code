@@ -6,8 +6,10 @@
 
 	import { onMount } from "svelte";
 	import productService from "$lib/services/productService";
+	import Loading from "../../lib/components/Loading.svelte";
 
 	let products = [];
+	let loading = true;
 
 	const fetchAllProducts = async () => {
 		try {
@@ -18,6 +20,8 @@
 		} catch(err) {
 			console.log(err)
 		}
+
+		loading = false;
 	}
 
 	onMount(() => {
@@ -43,7 +47,6 @@
 			{#if products.length > 0}
 			<h1 class="text-2xl font-medium mb-2">Results</h1>
 			<p class="font-light text-neutral-600">Found {products.length} products.</p>
-			{/if}
 
 			<div class="grid grid-cols-4 gap-6 mt-10">
 
@@ -54,6 +57,11 @@
 				{/each}
 
 			</div>
+			{:else if loading == true}
+				<div class="flex justify-center">
+					<Loading />
+				</div>
+			{/if}
 
 		</div>
 

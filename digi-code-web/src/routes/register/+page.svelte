@@ -2,6 +2,9 @@
 	import AuthCard from "$lib/components/AuthCard.svelte";
 
 	import { post } from "$lib/api";
+	import { goto } from '$app/navigation';
+	import { setCookie, getCookie } from "$lib/cookie";
+	import { onMount } from "svelte";
 
 	let firstName;
 	let lastName;
@@ -22,6 +25,10 @@
 			console.log(error);
 		}
 	}
+
+	onMount(() => {
+		if (getCookie("auth_token") != "") goto("/profile");
+	})
 </script>
 
 <AuthCard title="Create a new account">
@@ -56,7 +63,7 @@
 		</div>
 
 		<p class="font-light text-neutral-600">
-			Already have an account? <a class="font-normal text-neutral-800" href="/login">Login</a> to your account.
+			Already have an account? <a class="font-normal text-neutral-800" href="/login">Login to your account</a>.
 		</p>
 
 	</form>

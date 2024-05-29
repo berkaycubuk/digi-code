@@ -2,9 +2,10 @@
 	import AuthCard from "$lib/components/AuthCard.svelte";
 
 	import { post } from "$lib/api";
-	import { setCookie } from "$lib/cookie";
+	import { setCookie, getCookie } from "$lib/cookie";
 
 	import { goto } from '$app/navigation';
+	import { onMount } from "svelte";
 
 	let email;
 	let password;
@@ -23,6 +24,10 @@
 			console.log(error);
 		}
 	}
+
+	onMount(() => {
+		if (getCookie("auth_token") != "") goto("/profile");
+	})
 </script>
 
 <AuthCard title="Login to your account">
